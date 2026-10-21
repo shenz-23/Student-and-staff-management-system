@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../frontend/js/login.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student and staff management system - Login</title>
+
+    <link rel="stylesheet" href="../frontend/css/style.css">
+</head>
+
+<body>
+
+    <video autoplay muted loop id="background-video">
+    <source src="background.mp4" type="video/mp4">
+    </video>
+
+    <div class="login-box">
+
+        <h1>Login</h1>
+
+        <form method="POST" action="/login">
+
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+            >
+
+            <label for="role">Login As</label>
+
+            <select id="role" name="role" required>
+
+                <option value="">Select Role</option>
+                <option value="cashier">Student</option>
+                <option value="manager">Lecturer</option>
+
+            </select>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
