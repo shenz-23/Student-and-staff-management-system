@@ -1,20 +1,29 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1e293b, #334155);
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow-x:hidden;
+    min-height: 100vh;
 }
 
 .login-box {
     background-color: white;
-    width: 350px;
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
     padding: 30px;
+    box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 0 15px #111;
     text-align: center;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+
 }
 
 h1 {

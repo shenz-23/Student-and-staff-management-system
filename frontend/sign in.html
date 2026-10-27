@@ -1,53 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sign up - Student and staff management system </title>
-
-    <link rel="stylesheet" href="../frontend/css/style.css">
+    <title>Create Account - Student and Staff Management System</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <script src="../frontend/js/sign in.js"></script>
-
-    <video autoplay muted loop id="background-video">
-        <source src="background.mp4" type="video/mp4">
-    </video>
-
     <div class="login-box">
+        <h1>Create Account</h1>
 
-        <h1>Sign up</h1>
-
-        <form>
-
+        <form id="contactForm">
             <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                required
-            >
+            <input type="email" id="email" required>
 
             <label for="contact">Contact Number</label>
-            <input
-                type="tel"
-                id="contact"
-                name="contact"
-                required
-            >
+            <input type="tel" id="contact" required>
 
-            <button href="sign in2.html" class="next-button" type="button" class="next-button" onclick="validateForm()">Next</button>
-            
-            
-
+            <button type="submit" class="next-button">Next</button>
         </form>
-
     </div>
 
+    <script src="js/sign in.js"></script>
 </body>
-
 </html>
