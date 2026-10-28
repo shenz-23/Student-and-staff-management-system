@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard | Student Management System</title>
+
+    <!-- Connect the CSS file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons used in the sidebar -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+         rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h2>EduManage</h2>
+                    <p>Staff Portal</p>
+                </div>
+                <button class="close-sidebar" id="closeSidebar"
+                        aria-label="Close menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">ST</div>
+                <div class="profile-info">
+                    <h3>Staff Member</h3>
+                    <p>Academic Staff</p>
+                </div>
+            </div>
+
+            <p class="menu-heading">MAIN MENU</p>
+
+            <nav class="navigation">
+                <a href="#dashboard" class="nav-link active"
+                   data-page="dashboard">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#students" class="nav-link"
+                   data-page="students">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+
+                <a href="#staff" class="nav-link"
+                   data-page="staff">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Staff Directory</span>
+                </a>
+
+                <a href="#classes" class="nav-link"
+                   data-page="classes">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Classes & Subjects</span>
+                </a>
+
+                <a href="#timetable" class="nav-link"
+                   data-page="timetable">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Timetable</span>
+                </a>
+
+                <a href="#attendance" class="nav-link"
+                   data-page="attendance">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Attendance</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a href="#settings" class="nav-link"
+                   data-page="settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <button class="nav-link logout-button" id="logoutButton">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Mobile overlay -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Main content -->
+        <main class="main-content">
+
+            <!-- Top navigation -->
+            <header class="topbar">
+
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle"
+                            aria-label="Open menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div>
+                        <h2 id="pageTitle">Dashboard</h2>
+                        <p class="breadcrumb">
+                            Home / <span id="breadcrumbTitle">Dashboard</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <span class="today-date" id="todayDate"></span>
+
+                    <button class="icon-button" id="notificationButton"
+                            aria-label="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="top-profile">
+                        <div class="avatar small-avatar">ST</div>
+                        <div class="top-profile-info">
+                            <strong>Staff Member</strong>
+                            <span>Staff Account</span>
+                        </div>
+                    </div>
+                </div>
+
+            </header>
+
+            <!-- Dashboard page -->
+            <section class="page-section" id="dashboard">
+
+                <div class="welcome-section">
+                    <div>
+                        <h1>Welcome back, Staff Member!</h1>
+                        <p>Here is an overview of your academic activities.</p>
+                    </div>
+
+                    <button class="primary-button" id="reportButton">
+                        <i class="fa-solid fa-download"></i>
+                        Export Students CSV
+                    </button>
+                </div>
+
+                <!-- Summary cards -->
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div>
+                            <p>Total Students</p>
+                            <h2 id="totalStudents">4</h2>
+                            <span class="stat-note">Registered students</span>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <p>Total Staff</p>
+                            <h2 id="totalStaff">3</h2>
+                            <span class="stat-note">Academic staff members</span>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <p>Subjects</p>
+                            <h2 id="totalSubjects">4</h2>
+                            <span class="stat-note">Available subjects</span>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <p>Today's Classes</p>
+                            <h2 id="totalClasses">3</h2>
+                            <span class="stat-note">Scheduled classes</span>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Student details -->
+                <section class="content-card" id="studentCard">
+
+                    <div class="card-header">
+                        <div>
+                            <h2>Student Details</h2>
+                            <p>View and manage registered students</p>
+                        </div>
+
+                        <button class="primary-button" id="addStudentButton">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Student
+                        </button>
+                    </div>
+
+                    <div class="table-toolbar">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="search" id="studentSearch"
+                                   placeholder="Search students...">
+                        </div>
+
+                        <select id="statusFilter" aria-label="Filter by status">
+                            <option value="all">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Course</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <!-- JavaScript inserts student rows here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="table-footer" id="studentCount"></p>
+
+                </section>
+
+                <!-- Timetable and subjects -->
+                <div class="bottom-grid">
+
+                    <section class="content-card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Today's Timetable</h2>
+                                <p>Your scheduled classes</p>
+                            </div>
+                            <i class="fa-regular fa-calendar-days header-icon"></i>
+                        </div>
+
+                        <div class="schedule-list" id="scheduleList"></div>
+                    </section>
+
+                    <section class="content-card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Assigned Subjects</h2>
+                                <p>Subjects you are teaching</p>
+                            </div>
+                            <i class="fa-solid fa-book header-icon"></i>
+                        </div>
+
+                        <div class="subject-list" id="subjectList"></div>
+                    </section>
+
+                </div>
+
+            </section>
+
+            <!-- Other sections are generated by JavaScript -->
+            <section class="page-section other-page" id="otherPage" hidden>
+                <div class="content-card">
+                    <h2 id="otherPageTitle">Page</h2>
+                    <p id="otherPageMessage"></p>
+                </div>
+            </section>
+
+            <!-- Add student modal -->
+            <div class="modal" id="studentModal" hidden>
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <div>
+                            <h2>Add Student</h2>
+                            <p>Enter the student's information below.</p>
+                        </div>
+                        <button type="button" class="icon-button"
+                                id="closeModal" aria-label="Close form">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <form id="studentForm">
+
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName"
+                               placeholder="Enter full name" required>
+
+                        <label for="studentCourse">Course</label>
+                        <input type="text" id="studentCourse"
+                               placeholder="Enter course" required>
+
+                        <label for="studentEmail">Email Address</label>
+                        <input type="email" id="studentEmail"
+                               placeholder="Enter email address" required>
+
+                        <label for="studentStatus">Status</label>
+                        <select id="studentStatus" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+
+                        <div class="modal-actions">
+                            <button type="button" class="secondary-button"
+                                    id="cancelStudent">Cancel</button>
+                            <button type="submit" class="primary-button">
+                                Save Student
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p>© 2026 EduManage | Student Management System</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Connect the JavaScript file -->
+    <script src="script.js"></script>
+    
+
+</body>
+</html>

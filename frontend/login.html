@@ -2,32 +2,28 @@
 <html lang="en">
 
 <head>
-    <script src="../frontend/js/login.js"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Student and staff management system - Login</title>
 
-    <link rel="stylesheet" href="../frontend/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-    <video autoplay muted loop id="background-video">
-    <source src="background.mp4" type="video/mp4">
-    </video>
 
     <div class="login-box">
 
         <h1>Login</h1>
 
-        <form method="POST" action="/login">
+        <form id="loginForm">
 
-            <label for="username">Username</label>
+            <label for="email">Email</label>
             <input
-                type="text"
-                id="username"
-                name="username"
+                type="email"
+                id="email"
+                name="email"
                 required
             >
 
@@ -44,8 +40,9 @@
             <select id="role" name="role" required>
 
                 <option value="">Select Role</option>
-                <option value="cashier">Student</option>
-                <option value="manager">Lecturer</option>
+                <option value="admin">Admin</option>
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
 
             </select>
 
@@ -56,7 +53,7 @@
         </form>
 
     </div>
-
+<script src="js/login.js"></script>
 </body>
 
 </html>
