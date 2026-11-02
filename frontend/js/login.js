@@ -9,16 +9,22 @@ form.addEventListener("submit", async function(event) {
 
     if (email === "") {
         alert("Please enter your email.");
+        return;
     }
-    else if (password === "") {
+
+    if (password === "") {
         alert("Please enter your password.");
+        return;
     }
-    else if (role === "") {
+
+    if (role === "") {
         alert("Please select your role.");
+        return;
     }
-    else {
-        try {
-            const response = await fetch("http://localhost:8000/api/v1/users/login",
+
+    try {
+        const response = await fetch(
+            "http://localhost:8000/api/v1/users/login",
             {
                 method: "POST",
                 headers: {
@@ -29,34 +35,38 @@ form.addEventListener("submit", async function(event) {
                     password: password,
                     role: role
                 })
-            });
-
-            const data = await response.json();
-
-             if (response.ok) {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-
-                alert("Login successful!");
-
-                if (role === "admin") {
-                    window.location.href = "sign in.html";
-                }
-                else if (role === "student") {
-                    alert("Student login successful. Dashboard linking is next.");
-                }
-                else if (role === "lecturer") {
-                    alert("Lecturer login successful. Dashboard linking is next.");
-                }
             }
-            else {
-                alert(data.message || "Login failed. Please try again.");
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            // Save login information.
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            alert("Login successful!");
+
+            // Redirect according to the user's role.
+            if (data.user.role === "student") {
+                window.location.href = "student/student-dashboard.html";
             }
 
+            else if (data.user.role === "lecturer") {
+                window.location.href = "lecturer/staff-dashboard.html";
+            }
+
+            else if (data.user.role === "admin") {
+                window.location.href = "sign in.html";
+            }
+
+        } else {
+            alert(data.message || "Login failed. Please try again.");
         }
-        catch (error) {
-            alert("Could not connect to the backend. Please check if the server is running.");
-            console.error(error);
-        }
+
+    } catch (error) {
+        alert("Could not connect to the backend. Please check if the server is running.");
+        console.error(error);
     }
 });

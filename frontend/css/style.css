@@ -176,3 +176,32 @@ button:hover {
     max-width: 600px;
     margin-top: 20px;
 }
+
+
+/* ====================================
+   ADMIN VIEW DASHBOARD BUTTON
+==================================== */
+
+.dashboard-button {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+
+    background-color: white;
+    color: #1e293b;
+
+    border: 2px solid #1e293b;
+    border-radius: 5px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dashboard-button:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}

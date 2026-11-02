@@ -1,4 +1,4 @@
-INSERT INTO Students (Student_ID, First_Name, Last_Name) VALUES
+INSERT INTO Student (S_ID, F_Name, L_Name) VALUES
 (1, 'Nimal', 'Perera'),
 (2, 'Kamal', 'Silva'),
 (3, 'Suresh', 'Fernando'),
@@ -100,7 +100,7 @@ INSERT INTO Students (Student_ID, First_Name, Last_Name) VALUES
 (99, 'Hirun', 'Silva'),
 (100, 'Ishan', 'Fernando');
 
-INSERT INTO Lecturers (Lecturer_ID, First_Name, Last_Name) VALUES
+INSERT INTO Lecturer (Lec_ID, F_Name, L_Name) VALUES
 (1, 'Nimal', 'Perera'),
 (2, 'Kamal', 'Silva'),
 (3, 'Sunil', 'Fernando'),
@@ -112,14 +112,14 @@ INSERT INTO Lecturers (Lecturer_ID, First_Name, Last_Name) VALUES
 (9, 'Lalith', 'Senanayake'),
 (10, 'Chamara', 'Bandara');
 
-INSERT INTO Admins (Admin_ID, Name) VALUES
+INSERT INTO Admin (Admin_ID, Name) VALUES
 (1, 'Nuwan Perera'),
 (2, 'Sanduni Silva'),
 (3, 'Ramesh Fernando'),
 (4, 'Ishara Jayasinghe'),
 (5, 'Dilani Bandara');
 
-INSERT INTO Courses (Course_ID, Course_Name) VALUES
+INSERT INTO Courses (C_ID, C_Name) VALUES
 (1, 'Higher Diploma in Computing'),
 (2, 'Higher Diploma in Software Engineering'),
 (3, 'Higher Diploma in Business Management'),

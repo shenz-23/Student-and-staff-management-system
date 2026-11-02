@@ -23,3 +23,4 @@ form.addEventListener("submit", function(event) {
         window.location.href = "sign in2.html";
     }
 });
+

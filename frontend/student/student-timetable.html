@@ -1,0 +1,928 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Timetable & Notifications | SSMS</title><link rel="stylesheet" href="css/student.css">
+<style> 
+
+/* ==========================================
+   SSMS STUDENT PORTAL - COMMON CSS
+========================================== */
+
+/* GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, 'Segoe UI', Arial, sans-serif;
+    color: #1b3159;
+    background: #f4f7fd;
+    font-size: 14px;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.muted {
+    color: #8391a9;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+
+/* ==========================================
+   MAIN LAYOUT
+========================================== */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.content {
+    max-width: 1380px;
+    margin: auto;
+    padding: 30px 32px 55px;
+}
+
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.sidebar {
+    width: 236px;
+    background: #ffffff;
+    border-right: 1px solid #e4eaf5;
+    padding: 26px 14px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #203f92;
+    font-size: 25px;
+    font-weight: 800;
+    padding: 0 7px 34px;
+}
+
+.brand-symbol {
+    width: 42px;
+    height: 48px;
+    border-radius: 9px 9px 18px 18px;
+    background: #203f92;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    border: 3px solid #203f92;
+    box-shadow: inset 0 -12px #63d5cb;
+}
+
+.university {
+    font-size: 11px;
+    font-weight: 750;
+    margin: 0 7px 4px;
+}
+
+.workspace {
+    font-size: 10px;
+    color: #8291ad;
+    margin: 0 7px 30px;
+}
+
+
+/* ==========================================
+   SIDEBAR NAVIGATION
+========================================== */
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 11px;
+    border-radius: 8px;
+    color: #70809c;
+    font-size: 13px;
+}
+
+.nav a:hover,
+.nav a.active {
+    background: #eaf1ff;
+    color: #2464eb;
+    text-decoration: none;
+    font-weight: 650;
+}
+
+.nav .ico {
+    width: 19px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.nav .signout {
+    margin-top: 30px;
+}
+
+
+/* ==========================================
+   TOP BAR
+========================================== */
+
+.topbar {
+    height: 74px;
+    background: white;
+    border-bottom: 1px solid #e4eaf5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    gap: 12px;
+}
+
+.topbar small {
+    color: #7587a5;
+}
+
+.topbar strong {
+    font-size: 12px;
+}
+
+.topbar .right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pill {
+    background: #eef3ff;
+    color: #376ce7;
+    border-radius: 20px;
+    padding: 5px 11px;
+    font-size: 11px;
+}
+
+.avatar {
+    background: #e9f0ff;
+    color: #3169e7;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   PAGE HEADING
+========================================== */
+
+.heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.heading h1 {
+    font-size: 29px;
+    font-weight: 550;
+    margin: 0 0 7px;
+}
+
+.heading p {
+    margin: 0;
+}
+
+
+/* ==========================================
+   CARDS
+========================================== */
+
+.card {
+    background: white;
+    border: 1px solid #e1e8f5;
+    border-radius: 12px;
+    padding: 22px;
+    min-width: 0;
+}
+
+.card h2 {
+    font-size: 17px;
+    margin: 0 0 9px;
+}
+
+.card h3 {
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+.card + .card {
+    margin-top: 16px;
+}
+
+
+/* ==========================================
+   GRID LAYOUTS
+========================================== */
+
+.grid {
+    display: grid;
+    gap: 17px;
+}
+
+.grid.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.section {
+    margin-top: 20px;
+}
+
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.metric {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 11px 0;
+}
+
+.metric-label {
+    font-size: 12px;
+    color: #7b8ba7;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid #e0e8f6;
+    border-radius: 8px;
+    padding: 11px 15px;
+    background: white;
+    color: #1b3159;
+    font-weight: 650;
+    font-size: 12px;
+}
+
+.btn.primary {
+    background: #2862ed;
+    border-color: #2862ed;
+    color: white;
+}
+
+.btn:hover {
+    filter: brightness(0.97);
+    text-decoration: none;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* ==========================================
+   FORMS
+========================================== */
+
+.input,
+select,
+textarea {
+    border: 1px solid #dfe7f5;
+    border-radius: 8px;
+    padding: 12px;
+    background: #ffffff;
+    color: #1b3159;
+    max-width: 100%;
+}
+
+.input {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    min-height: 95px;
+    resize: vertical;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.field label {
+    font-weight: 650;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   FLEX UTILITIES
+========================================== */
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+/* ==========================================
+   LIST ITEMS
+========================================== */
+
+.list-item {
+    border: 1px solid #e7edf8;
+    background: #f6f8fd;
+    padding: 15px;
+    border-radius: 9px;
+}
+
+.list-item strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.list-item small {
+    color: #8593ad;
+}
+
+
+/* ==========================================
+   STATUS TAGS
+========================================== */
+
+.tag {
+    display: inline-block;
+    border-radius: 16px;
+    padding: 5px 9px;
+    font-size: 11px;
+    background: #eaf1ff;
+    color: #2862ed;
+}
+
+.tag.green {
+    background: #e6f7ef;
+    color: #17855c;
+}
+
+.tag.amber {
+    background: #fff3dc;
+    color: #ad7217;
+}
+
+.tag.red {
+    background: #ffeaec;
+    color: #bf4a58;
+}
+
+
+/* ==========================================
+   NOTICES
+========================================== */
+
+.notice {
+    background: #eaf1ff;
+    color: #375b9a;
+    border-radius: 9px;
+    padding: 15px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 16px 0;
+}
+
+
+/* ==========================================
+   TABS
+========================================== */
+
+.tabs {
+    display: flex;
+    gap: 18px;
+    border-bottom: 1px solid #e6ecf7;
+    margin: 16px 0;
+}
+
+.tab {
+    background: none;
+    border: 0;
+    padding: 11px 2px;
+    color: #7587a5;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: #2862ed;
+    border-color: #2862ed;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   TABLES
+========================================== */
+
+.table-scroll {
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    font-size: 12px;
+}
+
+th {
+    background: #f4f7fc;
+    color: #8490a7;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+}
+
+td,
+th {
+    padding: 15px 13px;
+    border-bottom: 1px solid #edf1f8;
+}
+
+td {
+    color: #314365;
+}
+
+
+/* ==========================================
+   PROGRESS BARS
+========================================== */
+
+.progress {
+    height: 7px;
+    background: #e9effb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress > span {
+    height: 100%;
+    display: block;
+    background: #2b64ed;
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   EMPTY STATES
+========================================== */
+
+.empty {
+    color: #8290a8;
+    text-align: center;
+    padding: 28px;
+}
+
+
+/* ==========================================
+   UPLOAD AREA
+========================================== */
+
+.upload {
+    border: 1px dashed #a9c5ff;
+    background: #f2f6ff;
+    border-radius: 9px;
+    padding: 25px;
+    text-align: center;
+}
+
+.upload input {
+    max-width: 100%;
+}
+
+
+/* ==========================================
+   SUBJECT CARDS
+========================================== */
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.subject {
+    padding: 19px 13px;
+}
+
+.subject strong {
+    display: block;
+    margin: 12px 0 7px;
+    font-size: 12px;
+}
+
+.subject small {
+    color: #8492aa;
+}
+
+
+/* ==========================================
+   TIMETABLE CALENDAR
+========================================== */
+
+.calendar {
+    display: grid;
+    grid-template-columns: 75px repeat(5, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.cal-head {
+    text-align: center;
+    padding: 12px 4px;
+    background: #f3f6fc;
+    border-radius: 7px;
+    font-weight: 650;
+    font-size: 12px;
+}
+
+.cal-time {
+    font-size: 11px;
+    color: #8292ae;
+    padding: 14px 2px;
+}
+
+.cal-cell {
+    background: #f3f6fc;
+    border: 1px solid #e6edfa;
+    border-radius: 8px;
+    padding: 13px 10px;
+    min-height: 100px;
+    font-size: 11px;
+}
+
+.cal-cell strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.cal-cell small {
+    color: #8797b2;
+}
+
+.cal-cell.featured {
+    background: #eaf1ff;
+    border-color: #bbd1ff;
+}
+
+
+/* ==========================================
+   ATTENDANCE DONUT
+========================================== */
+
+.donut {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #2862ed 0 0%,
+        #e8eef9 0
+    );
+    display: grid;
+    place-items: center;
+    margin: 22px auto;
+}
+
+.donut > div {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-size: 26px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer {
+    font-size: 11px;
+    color: #8d9bb3;
+    margin-top: 25px;
+}
+
+.demo {
+    color: #8a97af;
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   STUDENT LOGIN PAGE
+========================================== */
+
+.login-page {
+    display: grid;
+    grid-template-columns: 48% 52%;
+    min-height: 100vh;
+    background: white;
+}
+
+.login-left {
+    background: #142f67;
+    color: white;
+    padding: 45px 8%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-left .brand {
+    color: #213d91;
+    background: white;
+    border-radius: 6px;
+    width: max-content;
+    padding: 7px 12px;
+    margin-bottom: 70px;
+}
+
+.login-left .eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #b9caeb;
+}
+
+.login-left h1 {
+    font-size: clamp(32px, 3.3vw, 55px);
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    margin: 18px 0;
+}
+
+.login-left p {
+    color: #b8c9e8;
+    line-height: 1.6;
+}
+
+.campus-photo {
+    margin-top: 20px;
+    width: 100%;
+    aspect-ratio: 1.5;
+    object-fit: cover;
+    border-radius: 13px;
+}
+
+.login-left .bottom {
+    margin-top: auto;
+    padding-top: 25px;
+    font-size: 11px;
+    color: #b9c9e8;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-right {
+    padding: 48px 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-form-wrap {
+    margin: auto 0;
+    max-width: 550px;
+    width: 100%;
+}
+
+.login-form-wrap h2 {
+    font-size: 34px;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+.login-form-wrap .btn {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.login-form-wrap .field {
+    margin: 25px 0;
+}
+
+.login-form-wrap .field input {
+    height: 49px;
+}
+
+.login-foot {
+    font-size: 11px;
+    color: #8594ae;
+}
+
+.error {
+    color: #bd364d;
+    font-size: 12px;
+    min-height: 20px;
+}
+
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+.mobile-menu {
+    display: none;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 1050px) {
+
+    .grid.four {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .subject-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .content {
+        padding: 25px 18px;
+    }
+
+    .login-left {
+        padding: 35px 7%;
+    }
+}
+
+@media (max-width: 750px) {
+
+    .sidebar {
+        position: fixed;
+        z-index: 20;
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+        box-shadow: 0 5px 25px #13274b15;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .topbar {
+        padding: 0 14px;
+    }
+
+    .topbar .right .pill {
+        display: none;
+    }
+
+    .content {
+        padding: 20px 13px;
+    }
+
+    .grid.two,
+    .grid.three,
+    .grid.four {
+        grid-template-columns: 1fr;
+    }
+
+    .subject-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .calendar {
+        overflow: auto;
+        grid-template-columns: 60px repeat(5, 130px);
+    }
+
+    .heading h1 {
+        font-size: 24px;
+    }
+
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-left {
+        display: none;
+    }
+
+    .login-right {
+        min-height: 100vh;
+        padding: 28px 7%;
+    }
+}
+
+/* STUDENT TIMETABLE */
+
+body[data-page="timetable"] .calendar {
+    margin-top: 20px;
+}
+
+body[data-page="timetable"] .cal-head {
+    color: #1b3159;
+    font-weight: 700;
+}
+
+body[data-page="timetable"] .cal-cell {
+    transition: background 0.2s;
+}
+
+body[data-page="timetable"] .cal-cell:hover {
+    background: #eaf1ff;
+}
+
+body[data-page="timetable"] .cal-cell.featured {
+    border: 1px solid #a9c5ff;
+}
+
+body[data-page="timetable"] .cal-time {
+    font-weight: 600;
+}
+</style></head><body data-page="timetable"><div class="layout"><aside class="sidebar"><div class="brand"><span class="brand-symbol">◕</span> SSMS</div><div class="university">ABC University</div><div class="workspace">STUDENT WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="topbar"><div class="row"><button class="btn mobile-menu" id="menuButton" type="button">☰</button><small>Student portal / <strong id="topPage">Overview</strong></small></div><div class="right"><span class="pill">Semester · 2026/27</span><span aria-label="Notifications">♧</span><span class="avatar" data-student-initials>S</span><div><strong data-student-name>Student</strong><br><small data-student-id></small></div></div></header><div class="content"><div class="heading"><div><h1>Timetable & notifications</h1><p class="muted">Your week at a glance. Stay in sync with every class and update.</p></div></div><section class="card"><h2>Weekly timetable <span class="tag" style="float:right">Illustrative layout</span></h2><div class="notice">Preview only: this section is not connected to a database endpoint yet. Values from the Figma mockup are not shown as real student records.</div><div class="calendar" id="calendar"></div></section><div class="section"><section class="card"><h2>Your notifications</h2><div class="notice">Preview only: this section is not connected to a database endpoint yet. Values from the Figma mockup are not shown as real student records.</div><div class="tabs"><button class="tab active" data-tab-group="notifications" data-tab-target="allNotices">All updates</button><button class="tab" data-tab-group="notifications" data-tab-target="unreadNotices">Unread</button></div><div data-tab-panel="notifications" id="allNotices" class="empty">No connected notifications.</div><div data-tab-panel="notifications" id="unreadNotices" class="empty hidden">Unread notifications require an API.</div></section></div><div class="footer">© 2026 SSMS · ABC University <span style="float:right">Student workspace</span></div></div></main></div><script src="js/student.js" defer></script></body></html>

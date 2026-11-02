@@ -1,0 +1,968 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Grades | SSMS</title>
+
+    <link rel="stylesheet" href="css/lecturer.css">
+    <style>
+
+        
+/* ========== GENERAL STYLES ========== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f4f7fd;
+    color: #19345f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    color: #2465f4;
+    text-decoration: none;
+}
+
+/* ========== MAIN LAYOUT ========== */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    min-width: 0;
+    flex: 1;
+}
+
+.content {
+    max-width: 1350px;
+    margin: auto;
+    padding: 27px 30px;
+}
+
+/* ========== SIDEBAR ========== */
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid #e2eaf5;
+    padding: 23px 15px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: auto;
+}
+
+.brand {
+    font-size: 27px;
+    font-weight: 800;
+    color: #1a3888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 33px;
+}
+
+.shield {
+    background: #1c398a;
+    color: #9ae7db;
+    border-radius: 8px;
+    padding: 7px;
+    font-size: 26px;
+}
+
+.university {
+    font-size: 11px;
+    margin: 0 6px 26px;
+}
+
+.university small {
+    display: block;
+    color: #7c8eab;
+    font-size: 10px;
+    margin-top: 6px;
+}
+
+.sidebar nav {
+    display: grid;
+    gap: 7px;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #6d7f9d;
+    border-radius: 7px;
+    padding: 13px 11px;
+    font-size: 12px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #eaf1ff;
+    color: #2465f4;
+    font-weight: 700;
+}
+
+.nav-icon {
+    font-size: 16px;
+    width: 18px;
+    text-align: center;
+}
+
+.sidebar nav a.signout {
+    margin-top: 25px;
+}
+
+/* ========== TOP BAR ========== */
+
+.topbar {
+    height: 62px;
+    background: #fff;
+    border-bottom: 1px solid #e4eaf4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.crumb {
+    color: #788ba9;
+    font-size: 11px;
+}
+
+.crumb strong {
+    color: #233e6a;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+}
+
+.account small {
+    display: block;
+    color: #7b8da7;
+    margin-top: 3px;
+}
+
+.avatar {
+    border-radius: 50%;
+    background: #eaf1ff;
+    color: #2867f5;
+    padding: 11px;
+    font-size: 12px;
+}
+
+.bell {
+    font-size: 21px;
+    color: #7a8cab;
+    margin-right: 8px;
+}
+
+/* ========== PAGE TITLE ========== */
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-title h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0 0 8px;
+}
+
+.page-title p {
+    margin: 0;
+}
+
+.muted {
+    color: #8191ab;
+}
+
+/* ========== CARDS ========== */
+
+.card {
+    background: white;
+    border: 1px solid #e1e9f5;
+    border-radius: 10px;
+    padding: 21px;
+    margin-bottom: 20px;
+    min-width: 0;
+}
+
+.card h2 {
+    font-size: 16px;
+    margin: 0 0 20px;
+}
+
+.card h3 {
+    font-size: 14px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.columns > .card {
+    height: auto;
+}
+
+/* ========== STATISTICS ========== */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.stat {
+    min-height: 132px;
+}
+
+.stat-number {
+    font-size: 29px;
+    margin: 14px 0;
+}
+
+.stat small {
+    font-size: 11px;
+}
+
+/* ========== NOTICES AND ITEMS ========== */
+
+.note {
+    background: #eaf1ff;
+    color: #2e4b7c;
+    border-radius: 7px;
+    padding: 16px;
+    margin: 12px 0 18px;
+    line-height: 1.6;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f3f6fc;
+    padding: 17px;
+    border-radius: 7px;
+    margin: 11px 0;
+    align-items: center;
+}
+
+.item strong {
+    font-size: 12px;
+}
+
+.item small {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+}
+
+.blue {
+    color: #2564f5;
+    font-size: 11px;
+}
+
+.status {
+    background: #fff4dd;
+    color: #76500e;
+    border: 1px solid #f5dda2;
+    padding: 13px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+}
+
+/* ========== BUTTONS ========== */
+
+.btn {
+    background: white;
+    border: 1px solid #dfe7f4;
+    color: #1d3765;
+    border-radius: 6px;
+    padding: 11px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 11px;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: #eff4ff;
+}
+
+.btn.primary {
+    background: #2864ef;
+    color: white;
+    border-color: #2864ef;
+}
+
+.actions {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.text-link {
+    font-size: 11px;
+}
+
+/* ========== FORMS ========== */
+
+.field {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+.field span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dfe7f3;
+    border-radius: 6px;
+    background: #fff;
+    color: #294268;
+    outline-color: #2864ef;
+}
+
+.field textarea {
+    min-height: 105px;
+    resize: vertical;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label:has(input[type=checkbox]) {
+    display: block;
+    margin: 12px 0;
+    font-size: 11px;
+}
+
+/* ========== TABS ========== */
+
+.tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #e3eaf5;
+    margin: 15px 0;
+}
+
+.tab {
+    border: 0;
+    background: transparent;
+    padding: 11px 0;
+    color: #7d8ba6;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.tab.active {
+    color: #2864ef;
+    border-bottom: 2px solid #2864ef;
+    font-weight: 700;
+}
+
+/* ========== FILE UPLOAD ========== */
+
+.upload {
+    border: 1px dashed #a8c4ff;
+    background: #f5f8ff;
+    border-radius: 7px;
+    padding: 26px;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    color: #2864ef;
+    cursor: pointer;
+}
+
+.upload strong {
+    color: #263f69;
+}
+
+.upload small {
+    color: #7b8daa;
+}
+
+.upload input {
+    max-width: 210px;
+}
+
+.selected-file {
+    color: #1d3d77;
+    font-size: 11px;
+}
+
+/* ========== TABLES ========== */
+
+.table-wrap {
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 11px;
+}
+
+th {
+    text-align: left;
+    background: #f3f6fb;
+    color: #7586a4;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+td,
+th {
+    padding: 14px;
+    border-bottom: 1px solid #e8eef6;
+}
+
+td input {
+    width: 66px;
+    border: 1px solid #dfe7f3;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+/* ========== FOOTER ========== */
+
+footer {
+    font-size: 10px;
+    color: #8393ac;
+    margin: 30px 0 5px;
+}
+
+footer span {
+    float: right;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 185px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        position: relative;
+        height: auto;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .sidebar nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar nav a {
+        padding: 9px;
+        font-size: 10px;
+    }
+
+    .brand {
+        margin-bottom: 10px;
+    }
+
+    .university {
+        margin-bottom: 10px;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .columns,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .page-title h1 {
+        font-size: 22px;
+    }
+
+    .calendar {
+        font-size: 10px;
+    }
+}
+
+        /* GRADES */
+
+.grade-guide {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.grade-guide div {
+    background: #eaf1ff;
+    color: #2864ef;
+    padding: 17px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.grade-guide small {
+    display: block;
+    font-size: 10px;
+    color: #8394af;
+    margin-top: 10px;
+}
+    </style>
+</head>
+
+<body data-page="grades">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <span class="shield">◈</span>
+                SSMS
+            </div>
+
+            <p class="university">
+                <strong>ABC University</strong>
+                <small>LECTURER WORKSPACE</small>
+            </p>
+
+            <nav id="lecturerNav"></nav>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <div class="crumb">
+                    Lecturer portal &nbsp;/&nbsp;
+                    <strong>Grades</strong>
+                </div>
+
+                <div class="account">
+
+                    <span class="bell">♧</span>
+
+                    <span class="avatar" data-lecturer-initials>
+                        L
+                    </span>
+
+                    <div>
+                        <strong data-lecturer-name>
+                            Lecturer
+                        </strong>
+
+                        <small data-lecturer-id></small>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <div class="content">
+
+                <!-- PAGE TITLE -->
+                <div class="page-title">
+
+                    <div>
+                        <h1>Grades entry & publication</h1>
+
+                        <p class="muted">
+                            Enter marks, validate results and release grades
+                            securely to individual students.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div
+                    id="statusMessage"
+                    class="status"
+                    role="status"
+                    hidden>
+                </div>
+
+                <!-- STATISTICS -->
+                <div class="stats">
+
+                    <section class="card stat">
+
+                        <div class="muted">
+                            Enrolled students
+                        </div>
+
+                        <div class="stat-number">—</div>
+
+                        <small class="muted">
+                            Gradebook course not connected
+                        </small>
+
+                    </section>
+
+                    <section class="card stat">
+
+                        <div class="muted">
+                            Ready to publish
+                        </div>
+
+                        <div class="stat-number">—</div>
+
+                        <small class="muted">
+                            Marks not connected
+                        </small>
+
+                    </section>
+
+                    <section class="card stat">
+
+                        <div class="muted">
+                            Incomplete results
+                        </div>
+
+                        <div class="stat-number">—</div>
+
+                        <small class="muted">
+                            Marks not connected
+                        </small>
+
+                    </section>
+
+                    <section class="card stat">
+
+                        <div class="muted">
+                            Already published
+                        </div>
+
+                        <div class="stat-number">—</div>
+
+                        <small class="muted">
+                            Publication API not connected
+                        </small>
+
+                    </section>
+
+                </div>
+
+                <!-- COURSE GRADEBOOK -->
+                <section class="card">
+
+                    <div class="card-head">
+                        <h2>Course gradebook</h2>
+                    </div>
+
+                    <!-- COURSE AND SEMESTER -->
+                    <div class="form-grid">
+
+                        <label class="field">
+
+                            <span>Course</span>
+
+                            <select>
+                                <option>Choose course</option>
+                            </select>
+
+                        </label>
+
+                        <label class="field">
+
+                            <span>Semester</span>
+
+                            <select>
+                                <option>Semester 3 · 2026/27</option>
+                            </select>
+
+                        </label>
+
+                    </div>
+
+                    <!-- TABS -->
+                    <div class="tabs" data-tabs>
+
+                        <button class="tab active" type="button">
+                            All students
+                        </button>
+
+                        <button class="tab" type="button">
+                            Ready
+                        </button>
+
+                        <button class="tab" type="button">
+                            Incomplete
+                        </button>
+
+                        <button class="tab" type="button">
+                            Published
+                        </button>
+
+                    </div>
+
+                    <!-- SEARCH -->
+                    <label class="field">
+
+                        <span>Find student</span>
+
+                        <input
+                            type="search"
+                            placeholder="Search name or student ID"
+                            value="">
+
+                    </label>
+
+                    <!-- STUDENT TABLE -->
+                    <div id="gradeTable">
+                        Loading students…
+                    </div>
+
+                    <div class="note">
+                        ⓘ &nbsp; Student names come from MySQL.
+                        Marks and publication are not connected;
+                        no grades will be published from this preview.
+                    </div>
+
+                    <!-- GRADEBOOK BUTTONS -->
+                    <div class="actions">
+
+                        <button
+                            class="btn"
+                            type="button"
+                            data-demo="Validate marks">
+                            Validate marks
+                        </button>
+
+                        <button
+                            class="btn"
+                            type="button"
+                            data-demo="Save draft marks">
+                            Save draft marks
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- PUBLICATION SECTION -->
+                <div class="columns">
+
+                    <!-- PUBLICATION HISTORY -->
+                    <section class="card">
+
+                        <div class="card-head">
+                            <h2>Publication history</h2>
+                        </div>
+
+                        <div class="note">
+                            ⓘ &nbsp; No grade publication history
+                            connected yet.
+                        </div>
+
+                        <div class="item">
+
+                            <div>
+
+                                <strong>
+                                    Publication audit log
+                                </strong>
+
+                                <small class="muted">
+                                    Will display saved releases
+                                </small>
+
+                            </div>
+
+                            <span class="blue"></span>
+
+                        </div>
+
+                    </section>
+
+                    <!-- PUBLISH GRADES -->
+                    <section class="card">
+
+                        <div class="card-head">
+                            <h2>Publish grades to students</h2>
+                        </div>
+
+                        <div class="note">
+                            ⓘ &nbsp; Publishing grades is disabled
+                            until a secure grades API is implemented.
+                        </div>
+
+                        <label>
+
+                            <input type="checkbox">
+
+                            I have reviewed and confirmed these marks
+
+                        </label>
+
+                        <label>
+
+                            <input type="checkbox">
+
+                            Notify students when grades are published
+
+                        </label>
+
+                        <label class="field">
+
+                            <span>Message to students</span>
+
+                            <textarea
+                                placeholder="Your results are now available"></textarea>
+
+                        </label>
+
+                        <div class="actions">
+
+                            <button
+                                class="btn primary"
+                                type="button"
+                                data-demo="Publish selected grades">
+                                Publish selected grades
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <!-- GRADING GUIDE -->
+                <section class="card">
+
+                    <div class="card-head">
+                        <h2>Grading guide</h2>
+                    </div>
+
+                    <div class="grade-guide">
+
+                        <div>
+                            A
+                            <small>85–100%</small>
+                        </div>
+
+                        <div>
+                            B+
+                            <small>80–84%</small>
+                        </div>
+
+                        <div>
+                            B
+                            <small>75–79%</small>
+                        </div>
+
+                        <div>
+                            Pass
+                            <small>50% minimum</small>
+                        </div>
+
+                    </div>
+
+                    <p class="muted">
+                        Illustrative grading guide from the Figma design;
+                        confirm with university policy before use.
+                    </p>
+
+                </section>
+
+                <!-- FOOTER -->
+                <footer>
+
+                    © 2026 SSMS · ABC University
+
+                    <span>Lecturer workspace</span>
+
+                </footer>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/lecturer.js" defer></script>
+
+</body>
+</html>
