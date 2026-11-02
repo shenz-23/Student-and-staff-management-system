@@ -101,7 +101,132 @@ export const User = {
         } finally {
             await connection.end();
         }
+    },
+
+    
+getStudentDashboard: async (studentId) => {
+    const connection = await connectDB();
+
+    try {
+        const [students] = await connection.execute(
+            `SELECT
+                S_ID AS user_id,
+                F_Name AS firstName,
+                L_Name AS lastName,
+                Email AS email
+             FROM Student
+             WHERE S_ID = ?
+             LIMIT 1`,
+            [studentId]
+        );
+
+        if (students.length === 0) {
+            return null;
+        }
+
+        const [courses] = await connection.execute(
+            `SELECT
+                Course.C_ID AS courseId,
+                Course.C_Name AS courseName
+             FROM Enroll
+             INNER JOIN Course
+                ON Enroll.C_ID = Course.C_ID
+             WHERE Enroll.S_ID = ?`,
+            [studentId]
+        );
+
+        return {
+            student: students[0],
+            courses: courses,
+            enrolledCourses: courses.length
+        };
+    } finally {
+        await connection.end();
     }
+},
+
+getLecturerDashboard: async (lecturerId) => {
+    const connection = await connectDB();
+
+    try {
+        const [lecturers] = await connection.execute(
+            `SELECT
+                Lec_ID AS user_id,
+                F_Name AS firstName,
+                L_Name AS lastName,
+                Email AS email,
+                Qualification AS qualification
+             FROM Lecturer
+             WHERE Lec_ID = ?
+             LIMIT 1`,
+            [lecturerId]
+        );
+
+        if (lecturers.length === 0) return null;
+
+        return {
+            lecturer: lecturers[0]
+        };
+
+    } finally {
+        await connection.end();
+    }
+},
+
+
+getAdminDashboard: async (adminId) => {
+    const connection = await connectDB();
+
+    try {
+        const [admins] = await connection.execute(
+            `SELECT
+                Admin_ID AS user_id,
+                Name AS name,
+                Email AS email,
+                Contact_No AS contactNo,
+                Qualification AS qualification
+             FROM Admin
+             WHERE Admin_ID = ?
+             LIMIT 1`,
+            [adminId]
+        );
+
+        if (admins.length === 0) {
+            return null;
+        }
+
+        return {
+            admin: admins[0]
+        };
+
+    } finally {
+        await connection.end();
+    }
+},
+
+
+getAllStudents: async () => {
+    const connection = await connectDB();
+
+    try {
+        const [students] = await connection.execute(
+            `SELECT
+                S_ID AS studentId,
+                F_Name AS firstName,
+                L_Name AS lastName,
+                Email AS email,
+                Contact_No AS contactNo
+             FROM Student
+             ORDER BY S_ID`
+        );
+
+        return students;
+
+    } finally {
+        await connection.end();
+    }
+}
+
 
 };
 

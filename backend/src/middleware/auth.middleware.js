@@ -1,7 +1,6 @@
-
 import jwt from "jsonwebtoken";
 
-const verifyAdmin = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
 
@@ -21,12 +20,6 @@ const verifyAdmin = (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        if (decoded.role !== "admin") {
-            return res.status(403).json({
-                message: "Only admins can create accounts"
-            });
-        }
-
         req.user = decoded;
         next();
     } catch (error) {
@@ -36,4 +29,16 @@ const verifyAdmin = (req, res, next) => {
     }
 };
 
-export { verifyAdmin };
+const verifyAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if (req.user.role !== "admin") {
+            return res.status(403).json({
+                message: "Only admins can create accounts"
+            });
+        }
+
+        next();
+    });
+};
+
+export { verifyToken, verifyAdmin };

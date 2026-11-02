@@ -8,7 +8,8 @@ const { default: connectDB } = await import("./config/database.js");
 
 const startServer = async () => {
     try {
-        await connectDB();
+        const connection = await connectDB();
+        await connection.end();
 
         const PORT = process.env.PORT || 3000;
 

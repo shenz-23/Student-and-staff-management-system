@@ -158,8 +158,125 @@ const createAccount = async (req, res) => {
     }
 };
 
-export { loginUser, createAccount };
+
+const getStudentDashboard = async (req, res) => {
+    try {
+        if (req.user.role !== "student") {
+            return res.status(403).json({
+                message: "This dashboard is only for students"
+            });
+        }
+
+        const dashboard = await User.getStudentDashboard(
+            req.user.user_id
+        );
+
+        if (!dashboard) {
+            return res.status(404).json({
+                message: "Student record not found"
+            });
+        }
+
+        return res.status(200).json(dashboard);
+    } catch (error) {
+        console.error("Student dashboard error:", error);
+
+        return res.status(500).json({
+            message: "Error loading student dashboard"
+        });
+    }
+};
+
+const getLecturerDashboard = async (req, res) => {
+    try {
+        if (req.user.role !== "lecturer") {
+            return res.status(403).json({
+                message: "This dashboard is only for lecturers"
+            });
+        }
+
+        const dashboard = await User.getLecturerDashboard(req.user.user_id);
+
+        if (!dashboard) {
+            return res.status(404).json({
+                message: "Lecturer record not found"
+            });
+        }
+
+        return res.status(200).json(dashboard);
+
+    } catch (error) {
+        console.error("Lecturer dashboard error:", error);
+
+        return res.status(500).json({
+            message: "Error loading lecturer dashboard"
+        });
+    }
+};
 
 
+const getAdminDashboard = async (req, res) => {
+    try {
+        const user = req.user;
+
+        if (user.role !== "admin") {
+            return res.status(403).json({
+                message: "Access denied"
+            });
+        }
+
+        const dashboard = await User.getAdminDashboard(
+            user.user_id
+        );
+
+        if (!dashboard) {
+            return res.status(404).json({
+                message: "Admin not found"
+            });
+        }
+
+        return res.status(200).json(dashboard);
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: "Server error"
+        });
+    }
+};
+
+
+const getAllStudents = async (req, res) => {
+    try {
+        if (req.user.role !== "lecturer") {
+            return res.status(403).json({
+                message: "Only lecturers can view students"
+            });
+        }
+
+        const students = await User.getAllStudents();
+
+        return res.status(200).json({
+            message: "Students retrieved successfully",
+            students: students
+        });
+
+    } catch (error) {
+        console.error("Get students error:", error);
+
+        return res.status(500).json({
+            message: "Error retrieving students"
+        });
+    }
+};
+
+
+export { loginUser,
+        createAccount, 
+        getStudentDashboard, 
+        getLecturerDashboard,
+        getAdminDashboard,
+        getAllStudents };
 
 
