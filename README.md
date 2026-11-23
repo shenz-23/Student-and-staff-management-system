@@ -1,1 +1,0 @@
-# Student-and-staff-management-system
