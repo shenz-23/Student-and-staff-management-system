@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSMS | Student & Staff Management</title>
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="img/ssms-logo.png"
+                 alt="SSMS Logo"
+                 class="brand-logo">
+
+            
+        </div>
+
+        <div class="workspace-label">YOUR WORKSPACE</div>
+        <div id="role" class="role-label"></div>
+
+        <nav id="nav" aria-label="Main navigation"></nav>
+
+        <button id="logout" class="outline" type="button">
+            Log out
+        </button>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">
+                    Student & Staff Management System
+                </span>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div id="identity"></div>
+        </header>
+
+        <div class="content-area">
+            <section id="notice"
+                     role="status"
+                     aria-live="polite"></section>
+
+            <div id="content"></div>
+        </div>
+    </main>
+
+    <script type="module" src="js/portal.js"></script>
+
+</body>
+</html>

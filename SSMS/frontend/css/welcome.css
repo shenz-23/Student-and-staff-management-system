@@ -1,0 +1,358 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fc;
+    color: #172b4d;
+}
+
+/* Navigation bar */
+
+.navbar {
+    background: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #173c87;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo-section img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #526783;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+nav a:hover {
+    color: #2563eb;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.login-btn,
+.signup-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-btn {
+    color: #1c4ac4;
+    border: 1px solid #cbd5e1;
+}
+
+.signup-btn {
+    color: white;
+    background: #2563eb;
+}
+
+/* Hero section */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 55px;
+    padding: 85px 7%;
+    background: #f1f5fc;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.welcome-label {
+    display: inline-block;
+    color: #2563eb;
+    background: #e3ecff;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: 50px;
+    color: #142f68;
+    margin-bottom: 12px;
+}
+
+.hero h2 {
+    font-size: 27px;
+    font-weight: 500;
+    margin-bottom: 22px;
+}
+
+.hero p {
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-block;
+    padding: 14px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary-btn {
+    background: white;
+    color: #1e40af;
+    border: 1px solid #d5dfed;
+}
+
+.primary-btn:hover,
+.signup-btn:hover {
+    background: #1d4ed8;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(20, 47, 104, 0.12);
+}
+
+/* About section */
+
+.about {
+    text-align: center;
+    padding: 75px 12%;
+    background: white;
+}
+
+.about h2,
+.features h2 {
+    color: #173c87;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    max-width: 850px;
+    margin: auto;
+    line-height: 1.9;
+    color: #64748b;
+}
+
+/* Features */
+
+.features {
+    text-align: center;
+    padding: 75px 7%;
+}
+
+.section-subtitle {
+    color: #64748b;
+    margin-bottom: 35px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.feature-card {
+    background: white;
+    padding: 35px 25px;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+.feature-icon {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    color: #173c87;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #64748b;
+    line-height: 1.8;
+}
+
+/* Bottom section */
+
+.bottom-section {
+    text-align: center;
+    background: #142f68;
+    color: white;
+    padding: 65px 20px;
+}
+
+.bottom-section h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.bottom-section p {
+    margin-bottom: 30px;
+    color: #cbd5e1;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    background: #102653;
+    color: #cbd5e1;
+    padding: 20px;
+    font-size: 13px;
+}
+
+/* Responsive design */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 55px 6%;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero-image {
+        width: 100%;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .navbar {
+        padding: 16px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero h2 {
+        font-size: 22px;
+    }
+
+    .hero-image img {
+        height: 240px;
+    }
+}
+
+.nav-buttons button,
+.hero-buttons button {
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login-btn,
+.signup-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.login-btn {
+    background: white;
+    color: #1c4ac4;
+    border: 1px solid #cbd5e1;
+}
+
+.signup-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+.login-btn,
+.signup-btn,
+.primary-btn,
+.secondary-btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
