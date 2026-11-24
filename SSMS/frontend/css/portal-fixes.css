@@ -1,12 +1,51 @@
 /* Shared non-destructive layout corrections across SSMS portals. */
-*, *::before, *::after { box-sizing: border-box; }
-.grid, .stats, .columns, .content-grid, .stat-grid { align-items: stretch; }
-.grid > .card, .stats > .card, .columns > .card,
-.content-grid > .panel, .stat-grid > .stat-card { min-width: 0; margin-top: 0; }
-.grid > .card + .card, .stats > .card + .card,
-.columns > .card + .card { margin-top: 0; }
-img, video { max-width: 100%; }
-.table-wrap, .table-scroll { max-width: 100%; overflow-x: auto; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.grid,
+.stats,
+.columns,
+.content-grid,
+.stat-grid {
+  align-items: stretch;
+}
+
+.grid>.card,
+.stats>.card,
+.columns>.card,
+.content-grid>.panel,
+.stat-grid>.stat-card {
+  min-width: 0;
+  margin-top: 0;
+}
+
+.grid>.card+.card,
+.stats>.card+.card,
+.columns>.card+.card {
+  margin-top: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+.table-wrap,
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 @media (max-width: 750px) {
-  .grid.two, .grid.three, .grid.four, .columns, .content-grid { grid-template-columns: minmax(0,1fr); }
+
+  .grid.two,
+  .grid.three,
+  .grid.four,
+  .columns,
+  .content-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

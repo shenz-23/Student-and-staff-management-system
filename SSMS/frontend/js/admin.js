@@ -8,44 +8,44 @@ let savedUser = {};
 try { savedUser = JSON.parse(localStorage.getItem('user') || '{}') || {}; } catch { savedUser = {}; }
 
 function showStatus(message, error = false) {
-  const el = $('#statusMessage');
-  if (!el) return;
-  el.hidden = false;
-  el.classList.toggle('error', error);
-  el.textContent = message;
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const el = $('#statusMessage');
+    if (!el) return;
+    el.hidden = false;
+    el.classList.toggle('error', error);
+    el.textContent = message;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 function signOut() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  location.href = '../login.html';
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    location.href = '../login.html';
 }
 $('#adminSignout')?.addEventListener('click', e => { e.preventDefault(); signOut(); });
 if (!token || savedUser.role !== 'admin') {
-  showStatus('Admin sign-in is required. Please sign in with an admin account.', true);
-  // Avoid displaying restricted pages to unauthenticated users.
-  document.querySelector('.content')?.replaceChildren();
-  location.replace('../login.html');
+    showStatus('Admin sign-in is required. Please sign in with an admin account.', true);
+    // Avoid displaying restricted pages to unauthenticated users.
+    document.querySelector('.content')?.replaceChildren();
+    location.replace('../login.html');
 } else {
-  const display = [savedUser.firstName, savedUser.lastName].filter(Boolean).join(' ') || savedUser.email?.split('@')[0] || 'Admin';
-  $$('[data-admin-name]').forEach(el => el.textContent = display);
-  $$('[data-admin-first]').forEach(el => el.textContent = savedUser.firstName || display.split(' ')[0]);
-  $$('[data-admin-initials]').forEach(el => el.textContent = display.split(/\s+/).slice(0, 2).map(x => x[0]).join('').toUpperCase());
-  $$('[data-admin-id]').forEach(el => el.textContent = `Admin · ${savedUser.user_id ?? 'Account'}`);
+    const display = [savedUser.firstName, savedUser.lastName].filter(Boolean).join(' ') || savedUser.email?.split('@')[0] || 'Admin';
+    $$('[data-admin-name]').forEach(el => el.textContent = display);
+    $$('[data-admin-first]').forEach(el => el.textContent = savedUser.firstName || display.split(' ')[0]);
+    $$('[data-admin-initials]').forEach(el => el.textContent = display.split(/\s+/).slice(0, 2).map(x => x[0]).join('').toUpperCase());
+    $$('[data-admin-id]').forEach(el => el.textContent = `Admin · ${savedUser.user_id ?? 'Account'}`);
 }
 async function api(path, options = {}) {
-  const headers = { Authorization: `Bearer ${token}`, ...options.headers };
-  const response = await fetch(API + path, { ...options, headers });
-  if (response.status === 401) { signOut(); throw new Error('Session expired'); }
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.message || `Request failed (${response.status})`);
-  return data;
+    const headers = { Authorization: `Bearer ${token}`, ...options.headers };
+    const response = await fetch(API + path, { ...options, headers });
+    if (response.status === 401) { signOut(); throw new Error('Session expired'); }
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.message || `Request failed (${response.status})`);
+    return data;
 }
 $$('[data-demo]').forEach(b => b.addEventListener('click', () => showStatus(`${b.dataset.demo} is a preview only. A secure backend endpoint is required before this action can be completed.`)));
 $$('[data-tab]').forEach(b => b.addEventListener('click', () => {
-  $$('[data-tab]').forEach(x => x.classList.remove('active'));
-  b.classList.add('active');
-  showStatus(`${b.textContent} selected. The configuration sections are displayed below.`);
+    $$('[data-tab]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    showStatus(`${b.textContent} selected. The configuration sections are displayed below.`);
 }));
 function addCell(tr, text) { const td = document.createElement('td'); td.textContent = String(text ?? '—'); tr.append(td); return td; }
 function emptyRow(tbody, count, message) { tbody.replaceChildren(); const tr = document.createElement('tr'); const td = addCell(tr, message); td.colSpan = count; tbody.append(tr); }
@@ -61,31 +61,31 @@ async function loadUsers() {
         const studentData = await api("/admin/students");
         const lecturerData = await api("/admin/lecturers");
 
-        
-const students = studentData.students.map(student => ({
-    id: student.studentId,
-    name: student.firstName + " " + student.lastName,
-    firstName: student.firstName,
-    lastName: student.lastName,
-    email: student.email,
-    contactNo: student.contactNo,
-    accountStatus: student.accountStatus,
-    role: "Student"
-}));
+
+        const students = studentData.students.map(student => ({
+            id: student.studentId,
+            name: student.firstName + " " + student.lastName,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            email: student.email,
+            contactNo: student.contactNo,
+            accountStatus: student.accountStatus,
+            role: "Student"
+        }));
 
 
-        
-const lecturers = lecturerData.lecturers.map(lecturer => ({
-    id: lecturer.lecturerId,
-    name: lecturer.firstName + " " + lecturer.lastName,
-    firstName: lecturer.firstName,
-    lastName: lecturer.lastName,
-    email: lecturer.email,
-    contactNo: lecturer.contactNo,
-    qualification: lecturer.qualification,
-    accountStatus: lecturer.accountStatus,
-    role: "Lecturer"
-}));
+
+        const lecturers = lecturerData.lecturers.map(lecturer => ({
+            id: lecturer.lecturerId,
+            name: lecturer.firstName + " " + lecturer.lastName,
+            firstName: lecturer.firstName,
+            lastName: lecturer.lastName,
+            email: lecturer.email,
+            contactNo: lecturer.contactNo,
+            qualification: lecturer.qualification,
+            accountStatus: lecturer.accountStatus,
+            role: "Lecturer"
+        }));
 
 
         const users = [...students, ...lecturers];
@@ -132,7 +132,7 @@ const lecturers = lecturerData.lecturers.map(lecturer => ({
                     editButton.className = "btn";
                     editButton.type = "button";
 
-                    editButton.addEventListener("click", function() {
+                    editButton.addEventListener("click", function () {
                         document.getElementById("editStudentId").value = user.id;
                         document.getElementById("editStudentFirstName").value = user.firstName;
                         document.getElementById("editStudentLastName").value = user.lastName;
@@ -152,137 +152,137 @@ const lecturers = lecturerData.lecturers.map(lecturer => ({
 
 
 
-const statusButton = document.createElement("button");
+                    const statusButton = document.createElement("button");
 
-statusButton.textContent =
-    user.accountStatus === "Active" ? "Deactivate" : "Activate";
+                    statusButton.textContent =
+                        user.accountStatus === "Active" ? "Deactivate" : "Activate";
 
-statusButton.className = "btn";
-statusButton.type = "button";
-statusButton.style.marginLeft = "10px";
+                    statusButton.className = "btn";
+                    statusButton.type = "button";
+                    statusButton.style.marginLeft = "10px";
 
-statusButton.addEventListener("click", async function() {
+                    statusButton.addEventListener("click", async function () {
 
-    const newStatus =
-        user.accountStatus === "Active" ? "Inactive" : "Active";
+                        const newStatus =
+                            user.accountStatus === "Active" ? "Inactive" : "Active";
 
-    const confirmed = confirm(
-        "Are you sure you want to " +
-        (newStatus === "Active" ? "activate " : "deactivate ") +
-        user.name + "?"
-    );
+                        const confirmed = confirm(
+                            "Are you sure you want to " +
+                            (newStatus === "Active" ? "activate " : "deactivate ") +
+                            user.name + "?"
+                        );
 
-    if (!confirmed) return;
+                        if (!confirmed) return;
 
-    try {
-        const data = await api(
-            "/admin/students/" + user.id + "/status",
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    status: newStatus
-                })
-            }
-        );
+                        try {
+                            const data = await api(
+                                "/admin/students/" + user.id + "/status",
+                                {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        status: newStatus
+                                    })
+                                }
+                            );
 
-        showStatus(data.message);
+                            showStatus(data.message);
 
-        await loadUsers();
-        await loadAccountCount();
+                            await loadUsers();
+                            await loadAccountCount();
 
-    } catch (error) {
-        showStatus(error.message, true);
-        console.error("Error updating student status:", error);
-    }
-});
+                        } catch (error) {
+                            showStatus(error.message, true);
+                            console.error("Error updating student status:", error);
+                        }
+                    });
 
-actionCell.appendChild(statusButton);
+                    actionCell.appendChild(statusButton);
 
 
 
-                
-} else if (user.role === "Lecturer") {
 
-    const editButton = document.createElement("button");
+                } else if (user.role === "Lecturer") {
 
-    editButton.textContent = "Edit";
-    editButton.className = "btn";
-    editButton.type = "button";
+                    const editButton = document.createElement("button");
 
-    editButton.addEventListener("click", function() {
+                    editButton.textContent = "Edit";
+                    editButton.className = "btn";
+                    editButton.type = "button";
 
-        document.getElementById("editLecturerId").value = user.id;
-        document.getElementById("editLecturerFirstName").value = user.firstName;
-        document.getElementById("editLecturerLastName").value = user.lastName;
-        document.getElementById("editLecturerEmail").value = user.email;
-        document.getElementById("editLecturerContact").value = user.contactNo || "";
-        document.getElementById("editLecturerQualification").value = user.qualification || "";
+                    editButton.addEventListener("click", function () {
 
-        const section = document.getElementById("editLecturerSection");
+                        document.getElementById("editLecturerId").value = user.id;
+                        document.getElementById("editLecturerFirstName").value = user.firstName;
+                        document.getElementById("editLecturerLastName").value = user.lastName;
+                        document.getElementById("editLecturerEmail").value = user.email;
+                        document.getElementById("editLecturerContact").value = user.contactNo || "";
+                        document.getElementById("editLecturerQualification").value = user.qualification || "";
 
-        section.hidden = false;
-        section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    });
+                        const section = document.getElementById("editLecturerSection");
 
-    actionCell.appendChild(editButton);
+                        section.hidden = false;
+                        section.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    });
 
-    
-const statusButton = document.createElement("button");
+                    actionCell.appendChild(editButton);
 
-statusButton.type = "button";
-statusButton.className = "btn";
-statusButton.style.marginLeft = "10px";
 
-statusButton.textContent =
-    user.accountStatus === "Active" ? "Deactivate" : "Activate";
+                    const statusButton = document.createElement("button");
 
-statusButton.addEventListener("click", async function() {
+                    statusButton.type = "button";
+                    statusButton.className = "btn";
+                    statusButton.style.marginLeft = "10px";
 
-    const newStatus =
-        user.accountStatus === "Active" ? "Inactive" : "Active";
+                    statusButton.textContent =
+                        user.accountStatus === "Active" ? "Deactivate" : "Activate";
 
-    const confirmed = confirm(
-        "Are you sure you want to " +
-        (newStatus === "Active" ? "activate " : "deactivate ") +
-        user.name + "?"
-    );
+                    statusButton.addEventListener("click", async function () {
 
-    if (!confirmed) return;
+                        const newStatus =
+                            user.accountStatus === "Active" ? "Inactive" : "Active";
 
-    try {
-        const data = await api(
-            "/admin/lecturers/" + user.id + "/status",
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    status: newStatus
-                })
-            }
-        );
+                        const confirmed = confirm(
+                            "Are you sure you want to " +
+                            (newStatus === "Active" ? "activate " : "deactivate ") +
+                            user.name + "?"
+                        );
 
-        showStatus(data.message);
+                        if (!confirmed) return;
 
-        await loadUsers();
-        await loadAccountCount();
+                        try {
+                            const data = await api(
+                                "/admin/lecturers/" + user.id + "/status",
+                                {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        status: newStatus
+                                    })
+                                }
+                            );
 
-    } catch (error) {
-        showStatus(error.message, true);
-        console.error("Error updating lecturer status:", error);
-    }
-});
+                            showStatus(data.message);
 
-actionCell.appendChild(statusButton);
+                            await loadUsers();
+                            await loadAccountCount();
 
-}
+                        } catch (error) {
+                            showStatus(error.message, true);
+                            console.error("Error updating lecturer status:", error);
+                        }
+                    });
+
+                    actionCell.appendChild(statusButton);
+
+                }
 
 
                 tr.appendChild(actionCell);
@@ -367,7 +367,7 @@ async function loadCourses() {
             editButton.className = "btn";
             editButton.type = "button";
 
-            editButton.addEventListener("click", function() {
+            editButton.addEventListener("click", function () {
                 document.getElementById("editCourseId").value = course.courseId;
                 document.getElementById("editCourseName").value = course.courseName;
 
@@ -391,80 +391,80 @@ async function loadCourses() {
 
 
 $('#createAccount')?.addEventListener('submit', async e => {
-  e.preventDefault();
-  const get = id => document.getElementById(id).value.trim();
-  const payload = {
-    role: get('newRole'), id: Number(get('newId')),
-    firstName: get('newFirst'), lastName: get('newLast'),
-    email: get('newEmail'), password: get('newPassword'),
-    contactNo: get('newContact') || null, qualification: get('newQualification') || null
-  };
-  if (!Number.isInteger(payload.id) || payload.id <= 0 || !payload.firstName || !payload.lastName || !payload.email || payload.password.length < 8) {
-    showStatus('Enter a positive numeric ID, names, email and a password of at least 8 characters.', true);
-    return;
-  }
-  try {
-    const result = await api('/accounts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    showStatus(result.message || 'Account created successfully.');
-    e.target.reset();
-  } catch (err) { showStatus(err.message, true); }
+    e.preventDefault();
+    const get = id => document.getElementById(id).value.trim();
+    const payload = {
+        role: get('newRole'), id: Number(get('newId')),
+        firstName: get('newFirst'), lastName: get('newLast'),
+        email: get('newEmail'), password: get('newPassword'),
+        contactNo: get('newContact') || null, qualification: get('newQualification') || null
+    };
+    if (!Number.isInteger(payload.id) || payload.id <= 0 || !payload.firstName || !payload.lastName || !payload.email || payload.password.length < 8) {
+        showStatus('Enter a positive numeric ID, names, email and a password of at least 8 characters.', true);
+        return;
+    }
+    try {
+        const result = await api('/accounts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        showStatus(result.message || 'Account created successfully.');
+        e.target.reset();
+    } catch (err) { showStatus(err.message, true); }
 });
 
 $('#saveClassDraft')?.addEventListener('click', () => {
-  const ids = ['classCourse','classCohort','classLecturer','classDate','classRoom','classStart','classEnd','classReason'];
-  const draft = Object.fromEntries(ids.map(id => [id, document.getElementById(id).value]));
-  localStorage.setItem('ssms-admin-class-draft', JSON.stringify(draft));
-  updateDraftPreview();
-  showStatus('Class draft saved in this browser only. It has not been published.');
+    const ids = ['classCourse', 'classCohort', 'classLecturer', 'classDate', 'classRoom', 'classStart', 'classEnd', 'classReason'];
+    const draft = Object.fromEntries(ids.map(id => [id, document.getElementById(id).value]));
+    localStorage.setItem('ssms-admin-class-draft', JSON.stringify(draft));
+    updateDraftPreview();
+    showStatus('Class draft saved in this browser only. It has not been published.');
 });
 $('#discardClassDraft')?.addEventListener('click', () => {
-  localStorage.removeItem('ssms-admin-class-draft');
-  $('#classForm')?.reset(); updateDraftPreview();
-  showStatus('Local draft discarded.');
+    localStorage.removeItem('ssms-admin-class-draft');
+    $('#classForm')?.reset(); updateDraftPreview();
+    showStatus('Local draft discarded.');
 });
 function updateDraftPreview() {
-  const target = $('#classDraftPreview'); if (!target) return;
-  const raw = localStorage.getItem('ssms-admin-class-draft');
-  if (!raw) { target.textContent = 'No draft saved.'; return; }
-  try {
-    const d = JSON.parse(raw);
-    target.textContent = `${d.classCourse || 'Unnamed class'} · ${d.classDate || 'Date not set'} · ${d.classStart || '?'}–${d.classEnd || '?'} · ${d.classRoom || 'Room not set'} (local draft)`;
-  } catch { target.textContent = 'Draft could not be read.'; }
+    const target = $('#classDraftPreview'); if (!target) return;
+    const raw = localStorage.getItem('ssms-admin-class-draft');
+    if (!raw) { target.textContent = 'No draft saved.'; return; }
+    try {
+        const d = JSON.parse(raw);
+        target.textContent = `${d.classCourse || 'Unnamed class'} · ${d.classDate || 'Date not set'} · ${d.classStart || '?'}–${d.classEnd || '?'} · ${d.classRoom || 'Room not set'} (local draft)`;
+    } catch { target.textContent = 'Draft could not be read.'; }
 }
 updateDraftPreview();
 
 $('#saveSettings')?.addEventListener('click', () => {
-  const form = $('#settingsForm');
-  if (!form) return;
-  const settings = Object.fromEntries([...form.querySelectorAll('input,select')].map(el => [el.id, el.value]));
-  localStorage.setItem('ssms-admin-local-settings', JSON.stringify(settings));
-  showStatus('Configuration saved in this browser only. Server settings have not changed.');
+    const form = $('#settingsForm');
+    if (!form) return;
+    const settings = Object.fromEntries([...form.querySelectorAll('input,select')].map(el => [el.id, el.value]));
+    localStorage.setItem('ssms-admin-local-settings', JSON.stringify(settings));
+    showStatus('Configuration saved in this browser only. Server settings have not changed.');
 });
 try {
-  const saved = JSON.parse(localStorage.getItem('ssms-admin-local-settings') || '{}');
-  Object.entries(saved).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
+    const saved = JSON.parse(localStorage.getItem('ssms-admin-local-settings') || '{}');
+    Object.entries(saved).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
 } catch { /* Ignore malformed browser storage. */ }
 
 $('#saveSupportNote')?.addEventListener('click', () => {
-  localStorage.setItem('ssms-admin-support-note', $('#supportReply')?.value || '');
-  showStatus('Support note saved in this browser only. It is not attached to a support ticket.');
+    localStorage.setItem('ssms-admin-support-note', $('#supportReply')?.value || '');
+    showStatus('Support note saved in this browser only. It is not attached to a support ticket.');
 });
 if ($('#supportReply')) $('#supportReply').value = localStorage.getItem('ssms-admin-support-note') || '';
 
 async function loadStudentPreview() {
-  const tbody = $('#studentAttendanceTable tbody');
-  if (!tbody) return;
-  // No admin-authorized attendance API yet; never show fabricated attendance.
-  emptyRow(tbody, 3, 'Attendance register is not connected to an admin-authorized endpoint.');
+    const tbody = $('#studentAttendanceTable tbody');
+    if (!tbody) return;
+    // No admin-authorized attendance API yet; never show fabricated attendance.
+    emptyRow(tbody, 3, 'Attendance register is not connected to an admin-authorized endpoint.');
 }
 
 async function checkAPI() {
-  if (!$('#apiStatus')) return;
-  try {
-    // This route is already present and enforces lecturer role; 403 still confirms API connectivity.
-    const response = await fetch(API + '/lecturer/dashboard', { headers: { Authorization: `Bearer ${token}` } });
-    $('#apiStatus').textContent = response.status === 403 || response.ok ? 'Reachable' : `HTTP ${response.status}`;
-  } catch { $('#apiStatus').textContent = 'Not reachable'; }
+    if (!$('#apiStatus')) return;
+    try {
+        // This route is already present and enforces lecturer role; 403 still confirms API connectivity.
+        const response = await fetch(API + '/lecturer/dashboard', { headers: { Authorization: `Bearer ${token}` } });
+        $('#apiStatus').textContent = response.status === 403 || response.ok ? 'Reachable' : `HTTP ${response.status}`;
+    } catch { $('#apiStatus').textContent = 'Not reachable'; }
 }
 
 
@@ -499,12 +499,12 @@ async function loadAdminProfile() {
         const data = await response.json();
         const admin = data.admin;
 
-if (!admin) {
-    console.error("Admin information not found");
-    return;
-}
+        if (!admin) {
+            console.error("Admin information not found");
+            return;
+        }
 
-admin.name = admin.name || "Admin";
+        admin.name = admin.name || "Admin";
 
         // Display admin name
         document.querySelectorAll(
@@ -561,7 +561,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const createCourseForm = document.getElementById("createCourseForm");
 
 if (createCourseForm) {
-    createCourseForm.addEventListener("submit", async function(event) {
+    createCourseForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const courseId = Number(document.getElementById("newCourseId").value);
@@ -597,7 +597,7 @@ if (createCourseForm) {
 const editCourseForm = document.getElementById("editCourseForm");
 
 if (editCourseForm) {
-    editCourseForm.addEventListener("submit", async function(event) {
+    editCourseForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const courseId = document.getElementById("editCourseId").value;
@@ -627,7 +627,7 @@ if (editCourseForm) {
     });
 }
 
-document.getElementById("cancelEditCourse")?.addEventListener("click", function() {
+document.getElementById("cancelEditCourse")?.addEventListener("click", function () {
     document.getElementById("editCourseSection").hidden = true;
 });
 
@@ -635,7 +635,7 @@ document.getElementById("cancelEditCourse")?.addEventListener("click", function(
 const editStudentForm = document.getElementById("editStudentForm");
 
 if (editStudentForm) {
-    editStudentForm.addEventListener("submit", async function(event) {
+    editStudentForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const studentId = document.getElementById("editStudentId").value;
@@ -671,7 +671,7 @@ if (editStudentForm) {
     });
 }
 
-document.getElementById("cancelEditStudent")?.addEventListener("click", function() {
+document.getElementById("cancelEditStudent")?.addEventListener("click", function () {
     document.getElementById("editStudentSection").hidden = true;
 });
 
@@ -679,7 +679,7 @@ document.getElementById("cancelEditStudent")?.addEventListener("click", function
 const editLecturerForm = document.getElementById("editLecturerForm");
 
 if (editLecturerForm) {
-    editLecturerForm.addEventListener("submit", async function(event) {
+    editLecturerForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const lecturerId = document.getElementById("editLecturerId").value;
@@ -717,7 +717,7 @@ if (editLecturerForm) {
     });
 }
 
-document.getElementById("cancelEditLecturer")?.addEventListener("click", function() {
+document.getElementById("cancelEditLecturer")?.addEventListener("click", function () {
     document.getElementById("editLecturerSection").hidden = true;
 });
 
